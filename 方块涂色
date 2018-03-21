@@ -1,0 +1,23 @@
+方块涂色
+
+题意是这样的：有N个方块，可以被涂成K种颜色。输入N*K矩阵，costs[n][k]代表第n个方块，涂成第k种颜色的花费。要求每相邻两个方块的颜色不同。求最小花费。
+
+思路：没找到动态规划的更好方法，只好用递归来穷举了
+
+//返回n~N层的minCost，k表示n-1层被涂成第k种颜色。初始n=0，k=-1
+int minCost(vector<vector<int>>& costs,int n,int k)
+{
+    int mintemp;
+    map<int,int> mmin;
+    for (int i= 0;i<costs[n].size();i++)
+    {
+        if (i != k)    //上一个方块被涂成第k种颜色
+        {
+            if (n != (costs.size() - 1))
+                mmin[costs[n][i]+minCost(costs, n + 1, i)] = i;
+            else
+                mmin[costs[n][i]] = i;
+        }
+    }
+    return mmin.begin()->first;
+}

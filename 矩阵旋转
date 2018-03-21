@@ -1,0 +1,26 @@
+矩阵旋转
+
+要求：要求把n*n的矩阵顺时针旋转90°
+
+重点：空间复杂度为O（n）
+
+思路：
+
+1. 每次找4个元素，确定通用坐标
+
+2. 3次*交换*操作就可以旋转这4个元素
+
+3. 逐层缩小遍历范围
+
+int low = 1, high = n;
+    while(low<high)
+    {
+        for (int i = low;i < high;i++)
+        {
+            swap(arr[low][i], arr[i][high]);
+            swap(arr[low][i], arr[n-i+1][low]);
+            swap(arr[n-i+1][low], arr[high][n-i+1]);
+        }
+        low++;
+        high--;
+    }
